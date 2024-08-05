@@ -16,6 +16,7 @@
 package com.example.lunchtray.ui
 
 import androidx.lifecycle.ViewModel
+import com.example.lunchtray.datasource.DataSource
 import com.example.lunchtray.model.MenuItem
 import com.example.lunchtray.model.MenuItem.AccompanimentItem
 import com.example.lunchtray.model.MenuItem.EntreeItem
@@ -49,6 +50,10 @@ class OrderViewModel : ViewModel() {
         updateItem(accompaniment, previousAccompaniment)
     }
 
+    fun checkoutOrder() : OrderUiState {
+        return _uiState.value
+    }
+
     fun resetOrder() {
         _uiState.value = OrderUiState()
     }
@@ -71,6 +76,13 @@ class OrderViewModel : ViewModel() {
             )
         }
     }
+
+    fun entreeMenuList() : List<EntreeItem> = DataSource.entreeMenuItems
+
+    fun sideDishesMenuList() : List<SideDishItem> = DataSource.sideDishMenuItems
+
+    fun accompanimentMenuList() : List<AccompanimentItem> = DataSource.accompanimentMenuItems
+
 }
 
 fun Double.formatPrice(): String {

@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
@@ -109,9 +110,9 @@ fun MenuItemRow(
                 text = item.getFormattedPrice(),
                 style = MaterialTheme.typography.bodyMedium
             )
-            Divider(
-                thickness = dimensionResource(R.dimen.thickness_divider),
-                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium))
+            HorizontalDivider(
+                modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium)),
+                thickness = dimensionResource(R.dimen.thickness_divider)
             )
         }
     }

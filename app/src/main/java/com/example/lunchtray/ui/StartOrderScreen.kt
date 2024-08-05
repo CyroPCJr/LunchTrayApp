@@ -34,10 +34,12 @@ import com.example.lunchtray.R
 @Composable
 fun StartOrderScreen(
     onStartOrderButtonClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .padding(dimensionResource(id = R.dimen.padding_medium))
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -52,11 +54,8 @@ fun StartOrderScreen(
 
 @Preview
 @Composable
-fun StartOrderPreview(){
+fun StartOrderPreview() {
     StartOrderScreen(
         onStartOrderButtonClicked = {},
-        modifier = Modifier
-            .padding(dimensionResource(R.dimen.padding_medium))
-            .fillMaxSize()
     )
 }

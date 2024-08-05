@@ -24,7 +24,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,10 +42,18 @@ import com.example.lunchtray.model.OrderUiState
 @Composable
 fun CheckoutScreen(
     orderUiState: OrderUiState,
-    onNextButtonClicked: () -> Unit,
+    onNextButtonClicked: (String) -> Unit,
     onCancelButtonClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val summaryTotal = stringResource(
+        id = R.string.order_checkout_submit,
+        orderUiState.entree?.name ?: "", orderUiState.entree?.price ?: 0.0,
+        orderUiState.sideDish?.name ?: "", orderUiState.sideDish?.price ?: 0.0,
+        orderUiState.accompaniment?.name ?: "", orderUiState.accompaniment?.price ?: 0.0,
+        orderUiState.orderTotalPrice
+    )
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
@@ -58,9 +66,9 @@ fun CheckoutScreen(
         ItemSummary(item = orderUiState.sideDish, modifier = Modifier.fillMaxWidth())
         ItemSummary(item = orderUiState.accompaniment, modifier = Modifier.fillMaxWidth())
 
-        Divider(
-            thickness = dimensionResource(R.dimen.thickness_divider),
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small))
+        HorizontalDivider(
+            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_small)),
+            thickness = dimensionResource(R.dimen.thickness_divider)
         )
 
         OrderSubCost(
@@ -86,13 +94,13 @@ fun CheckoutScreen(
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.padding_medium)),
             horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
-        ){
+        ) {
             OutlinedButton(modifier = Modifier.weight(1f), onClick = onCancelButtonClicked) {
                 Text(stringResource(R.string.cancel).uppercase())
             }
             Button(
                 modifier = Modifier.weight(1f),
-                onClick = onNextButtonClicked
+                onClick = { onNextButtonClicked(summaryTotal) }
             ) {
                 Text(stringResource(R.string.submit).uppercase())
             }
@@ -103,7 +111,7 @@ fun CheckoutScreen(
 @Composable
 fun ItemSummary(
     item: MenuItem?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
@@ -118,7 +126,7 @@ fun ItemSummary(
 fun OrderSubCost(
     @StringRes resourceId: Int,
     price: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = stringResource(resourceId, price),

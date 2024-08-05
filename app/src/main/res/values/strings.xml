@@ -28,4 +28,5 @@
     <string name="tax">Tax: %s</string>
     <string name="total">Total: %s</string>
     <string name="submit">Submit</string>
+    <string name="order_checkout_submit">Order Summary:\n\n%1$s %2$s\n%3$s %4$s\n%5$s %6$s\nTotal: %7$s \n\nThank you!</string>
 </resources>
